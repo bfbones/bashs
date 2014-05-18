@@ -31,8 +31,8 @@ if [[ "$option" != "dnscheck" && "$option" != "pingcheck" ]]; then
 	fi
 fi
 echo ""
-server[0]='ssh root@server.com -i .sshkeys/somekey -p 22' #THIS FORMAT!!!!
-server[1]='ssh user@otherserver.com -i .sshkeys/someotherkey -p 20122'
+server[0]='ssh root@server.com -i .sshkeys/key1 -p 22' #THIS FORMAT ONLY! WITH PORT!
+server[1]='ssh user@otherserver.com -i .sshkeys/key2 -p 12345'
 server[2]='...'
 
 domains=( server.com otherserver.com )
@@ -132,12 +132,7 @@ if [ "$option" == "aptitude" ]; then
 		echo "command: $i -t screen aptitude install $packages"
 		read -p '..execute? (y, N): ' update
 		if [ "$update" == "y" ]; then
-			if [ "$servername" == "kony@home.konradmallok.de" ]; then
-				echo "applied additional command for sudo-rights"
-                		$i -t screen sudo aptitude install $packages
-			else
 				$i -t screen aptitude install $packages
-			fi
 		fi
 		echo "_____________________________________________________"
         done
@@ -190,7 +185,7 @@ if [[ "$option" != "dnscheck" && "$option" != "pingcheck" ]]; then
 	unset SSH_AGENT_PID
 	if [ -f /tmp/kupdate.tmp ]; then
 		echo "Notifying for Kernel-Update"
-		cat /tmp/kupdate.tmp | mail -r someone@server.com -s "there are needed restarts for some servers" toone@somebody.com
+		cat /tmp/kupdate.tmp | mail -r root@someserver.com -s "there are needed restarts for some servers" example@example.com
 		rm /tmp/kupdate.tmp
 	fi
 	echo "done."
