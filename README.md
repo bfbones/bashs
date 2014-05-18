@@ -3,7 +3,7 @@ bashs
 
 Some Bash-Scripts.. just for..
 
-*profile*: MotD for Linux Server.. used for /etc/profile
+*profile*: MotD for Linux Server.. used for /etc/profile. Bad Bash Style, but works. Main work done by Dennis Diehm, modificated by me.
 
 *manage.sh*: Script for managing a some more Servers and don't want puppet. Stuff like pingcheck, spread files, do commands, make updates. And extra tools like DNS Check for Domains. Put to /usr/local/bin.
 
