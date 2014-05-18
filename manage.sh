@@ -1,5 +1,11 @@
 #!/bin/bash
 
+server[0]='ssh root@server.com -i .sshkeys/key1 -p 22' #THIS FORMAT ONLY! WITH PORT! FIRST SSH-KEY USED FOR ALL SERVERS!
+server[1]='ssh user@otherserver.com -i .sshkeys/key1 -p 12345'
+server[2]='...'
+
+domains=( server.com otherserver.com )
+
 if [ -n "$1" ]; then
 	option=$1
 else
@@ -25,17 +31,12 @@ if [[ "$option" != "dnscheck" && "$option" != "pingcheck" ]]; then
 
 	if [ -z $SSH_AGENT_PID ]; then
 		eval $(ssh-agent)
-		ssh-add .sshkeys/kserver
+		ssh-add `echo $server[0] | awk '{print $4}'`
 	else
-	        ssh-add .sshkeys/kserver
+	        ssh-add `echo $server[0] | awk '{print $4}'`
 	fi
 fi
 echo ""
-server[0]='ssh root@server.com -i .sshkeys/key1 -p 22' #THIS FORMAT ONLY! WITH PORT!
-server[1]='ssh user@otherserver.com -i .sshkeys/key2 -p 12345'
-server[2]='...'
-
-domains=( server.com otherserver.com )
 
 rm=`shuf -i 100-999 -n 1`
 
